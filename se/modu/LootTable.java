@@ -132,17 +132,19 @@ public class LootTable {
 			gold = rollDiePercentage(1,100,0,10,"gold");
 			artifacts = rollArtifactPercentage(1, 7, "any");
 		} else if (hoardClass == 8){
-			
+			artifacts = rollDieArtifactPercentage(1,4,0,45,"gizmos");
 		} else if (hoardClass == 9){
-			
+			artifacts = rollDieArtifactPercentage(2,4,0,45,"drugs, chemicals and medical devices");
 		} else if (hoardClass == 10){
-			
+			gold = rollDiePercentage(2,10,0,70,"gold")*1000;
 		} else if (hoardClass == 11){
-			
+			gold = rollDiePercentage(2,4,0,40,"gold")*1000;
 		} else if (hoardClass == 12){
-			
+			silver = rollDiePercentage(1,8,0,25,"silver")*1000;
+			gold = rollDiePercentage(1,4,0,15,"gold")*1000;
 		} else if (hoardClass == 13){
-			
+			copper = rollDiePercentage(1,6,0,25,"copper")*1000;
+			silver = rollDiePercentage(1,4,0,25,"silver")*1000;
 		} else if (hoardClass == 14){
 			
 		} else if (hoardClass == 15){
