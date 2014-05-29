@@ -175,6 +175,9 @@ public class LootTable {
 				System.out.print(str+" ");
 			}
 		}
+		if(artifacts.size() == 0 && gold == 0 && silver == 0 && copper == 0){
+			System.out.println("Nothing.");
+		}
 			
 	}
 
