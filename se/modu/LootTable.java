@@ -69,6 +69,43 @@ public class LootTable {
 		return false;
 	}
 	
+	private int rollDiePercentage(int noOfDie, int noOfSides, int modifier, int chance, String type){
+		if(showRolls){
+			System.out.print("Attempting to roll for "+type+". ");
+		}
+		if(percentageRoll(chance)){
+			return rollDie(noOfDie,noOfSides,modifier);
+		}
+		return 0;
+	}
+	
+	private ArrayList<String> rollDieArtifactPercentage(int noOfDie, int noOfSides, int modifier, int chance, String type){
+		// Not sure how well this one will work out, we'll see
+		
+		ArrayList<String> artifacts = new ArrayList<String>();
+		if(showRolls){
+			System.out.print("Attempting to roll for artifacts. ");
+		}
+		if(percentageRoll(chance)){
+			artifacts.add(rollDie(noOfDie,noOfSides,modifier)+" "+type);
+		}
+		return artifacts;
+	}
+	
+	private ArrayList<String> rollArtifactPercentage(int noOfArtifacts, int chance, String type){
+		// Not sure how well this one will work out, we'll see
+		
+		ArrayList<String> artifacts = new ArrayList<String>();
+		if(showRolls){
+			System.out.print("Attempting to roll for artifacts. ");
+		}
+		if(percentageRoll(chance)){
+			artifacts.add(noOfArtifacts+" "+type);
+		}
+		return artifacts;
+	}
+	
+	
 	public void roll() {
 		setup();
 		int copper = 0;
@@ -86,49 +123,14 @@ public class LootTable {
 		} else if (hoardClass == 5){
 			gold = rollDie(1,6)*5;
 		} else if (hoardClass == 6){
-			if(showRolls){
-				System.out.print("Attempting to roll for copper. ");
-			}
-			if(percentageRoll(70)){
-				copper = rollDie(1,100);
-			}
-			if(showRolls){
-				System.out.print("Attempting to roll for silver. ");
-			}
-			if(percentageRoll(5)){
-				silver = rollDie(1,100);
-			}
-			if(showRolls){
-				System.out.print("Attempting to roll for gold. ");
-			}
-			if(percentageRoll(5)){
-				gold = rollDie(1,100);
-			}
-			if(showRolls){
-				System.out.print("Attempting to roll for artifacts. ");
-			}
-			if(percentageRoll(3)){
-				artifacts.add("1 any");
-			}
+			copper = rollDiePercentage(1,100,0,70,"copper");
+			silver = rollDiePercentage(1,100,0,5,"silver");
+			gold = rollDiePercentage(1,100,0,5,"gold");
+			artifacts = rollArtifactPercentage(1, 3, "any");
 		} else if (hoardClass == 7){
-			if(showRolls){
-				System.out.print("Attempting to roll for silver. ");
-			}
-			if(percentageRoll(25)){
-				silver = rollDie(1,100);
-			}
-			if(showRolls){
-				System.out.print("Attempting to roll for gold. ");
-			}
-			if(percentageRoll(10)){
-				gold = rollDie(1,100);
-			}
-			if(showRolls){
-				System.out.print("Attempting to roll for artifacts. ");
-			}
-			if(percentageRoll(7)){
-				artifacts.add("1 any");
-			}
+			silver = rollDiePercentage(1,100,0,25,"silver");
+			gold = rollDiePercentage(1,100,0,10,"gold");
+			artifacts = rollArtifactPercentage(1, 7, "any");
 		} else if (hoardClass == 8){
 			
 		} else if (hoardClass == 9){
@@ -178,6 +180,8 @@ public class LootTable {
 		if(artifacts.size() == 0 && gold == 0 && silver == 0 && copper == 0){
 			System.out.println("Nothing.");
 		}
+		
+		// Get it to ask "Again?" to rerun
 			
 	}
 
