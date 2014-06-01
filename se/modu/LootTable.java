@@ -242,7 +242,7 @@ public class LootTable {
 			return "Cannon, 1d4 Cannon Shells";
 		}else if(roll >=82 && roll <=90){
 			return "Grenade Launcher, 1d6 Launcher Grenades";
-		}else if(roll >=91 && roll <=100){
+		} else {
 			return "Machinegun, 1d12*10 Machinegun Bullets";
 		}
 	}
@@ -265,7 +265,7 @@ public class LootTable {
 			return "Warp-Field Dagger, 90% Chance for power cell";
 		}else if(roll >=82 && roll <=91){
 			return "Warp-Field Mace, 90% Chance for power cell";
-		}else if(roll >=92 && roll <=100){
+		} else {
 			return "Warp-Field Sword, 90% Chance for power cell";
 		}
 	}
@@ -284,7 +284,7 @@ public class LootTable {
 			return "Maser Pistol, 1d10 + 5 Charges Remaining";
 		}else if(roll >=70 && roll <=84){
 			return "Plasma Pistol, 1d10 Charges Remaining";
-		}else if(roll >=85 && roll <=100){
+		} else {
 			return "Stun Pistol, 1d10 Charges Remaining";
 		}
 	}
@@ -311,7 +311,7 @@ public class LootTable {
 			return "Radiation Rifle, 1d10 Charges Remaining";
 		}else if(roll >=85 && roll <=92){
 			return "Stun Rifle, 1d10 Charges Remaining";
-		}else if(roll >=93 && roll <=100){
+		} else {
 			return "X-Laser Rifle, 1d10 Charges Remaining";
 		}
 	}
@@ -338,7 +338,7 @@ public class LootTable {
 			return "Light EMA";
 		}else if(roll >=91 && roll <=95){
 			return "Medium EMA";
-		}else if(roll >=96 && roll <=100){
+		} else {
 			return "Heavy EMA";
 		}
 	}
@@ -361,7 +361,7 @@ public class LootTable {
 			return "Plutonium Clip";
 		}else if(roll >=98 && roll <=99){
 			return "Radioactive Battery";
-		}else if(roll =100){
+		} else {
 			return "Universal Power Source";
 		}
 	}
@@ -396,7 +396,7 @@ public class LootTable {
 			return "Plasma Grenade";
 		}else if(roll >=83 && roll <=88){
 			return "Shock Grenade";
-		}else if(roll >=89 && roll <=100){
+		} else {
 			return "Smoke Grenade";
 		}
 	}
@@ -433,7 +433,7 @@ public class LootTable {
 			return "Micro-Missile Launcher, 2d12 + 1 Micro-Missiles";
 		}else if(roll >=96 && roll <=97){
 			return "Mini-Missile Launcher, 2d6 + 1 Mini-Missiles";
-		}else if(roll >=98 && roll <=100){
+		} else {
 			return "Missile Launcher, 1d6 + 1 Missiles";
 		}
 	}
