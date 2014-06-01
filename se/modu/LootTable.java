@@ -219,35 +219,223 @@ public class LootTable {
 	}
 
 	public String primitiveFirearms() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=7){
+			return "Ammunition"; //1d6 * 10 Rounds
+		}else if(roll >=8 && roll <=17){
+			return "Pistol - Automatic, 1d10 + 10 Pistol Bullets";
+		}else if(roll >=18 && roll <=30){
+			return "Pistol - Revolver, 1d6 + 6 Revolver Bullets";
+		}else if(roll >=31 && roll <=36){
+			return "Sub Machinegun, 5d10 Sub Machinegun Bullets";
+		}else if(roll >=37 && roll <=41){
+			return "Rifle - Carbine, 3d12 Rifle Bullets";
+		}else if(roll >=42 && roll <=52){
+			return "Rifle - Automatic, 5d10 Rifle Bullets";
+		}else if(roll >=53 && roll <=59){
+			return "Rifle - Sport, 3d12 Rifle Bullets";
+		}else if(roll >=60 && roll <=69){
+			return "Shotgun - Single, 1d6 + 5 Shotgun Shells";
+		}else if(roll >=70 && roll <=78){
+			return "Shotgun - Automatic, 1d10 + 10 Shotgun Shells";
+		}else if(roll >=79 && roll <=81){
+			return "Cannon, 1d4 Cannon Shells";
+		}else if(roll >=82 && roll <=90){
+			return "Grenade Launcher, 1d6 Launcher Grenades";
+		}else if(roll >=91 && roll <=100){
+			return "Machinegun, 1d12*10 Machinegun Bullets";
+		}
 	}
 
 	public String advancedMeleeWeapons() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=11){
+			return "Energy Baton, 4d10 Charges Remaining";
+		}else if(roll >=12 && roll <=23){
+			return "Shock Gloves, 4d10 Charges Remaining";
+		}else if(roll >=24 && roll <=35){
+			return "Shock-Field Glove, 4d10 Charges Remaining";
+		}else if(roll >=36 && roll <=47){
+			return "Stun Baton, 4d10 Charges Remaining";
+		}else if(roll >=48 && roll <=59){
+			return "Vibro Dagger, 90% Chance for power cell";
+		}else if(roll >=60 && roll <=71){
+			return "Vibro Sword, 90% Chance for power cell";
+		}else if(roll >=72 && roll <=81){
+			return "Warp-Field Dagger, 90% Chance for power cell";
+		}else if(roll >=82 && roll <=91){
+			return "Warp-Field Mace, 90% Chance for power cell";
+		}else if(roll >=92 && roll <=100){
+			return "Warp-Field Sword, 90% Chance for power cell";
+		}
 	}
 
 	public String advancedPistols() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=15){
+			return "Gauss Machine Pistol";
+		}else if(roll >=16 && roll <=30){
+			return "Gauss Pistol Mk 1, 1d10 + 5 Charges Remaining";
+		}else if(roll >=31 && roll <=37){
+			return "Laser Pistol Mk 1, 1d10 + 5 Charges Remaining";
+		}else if(roll >=38 && roll <=54){
+			return "Laser Pistol Mk 2, 1d10 + 5 Charges Remaining";
+		}else if(roll >=55 && roll <=69){
+			return "Maser Pistol, 1d10 + 5 Charges Remaining";
+		}else if(roll >=70 && roll <=84){
+			return "Plasma Pistol, 1d10 Charges Remaining";
+		}else if(roll >=85 && roll <=100){
+			return "Stun Pistol, 1d10 Charges Remaining";
+		}
 	}
 
 	public String advancedRifles() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=5){
+			return "Blaster Rifle, 1d10 Charges Remaining";
+		}else if(roll >=6 && roll <=16){
+			return "EMP Rifle, 1d10 Charges Remaining";
+		}else if(roll >=17 && roll <=22){
+			return "Fusion Rifle, 1d10 Charges Remaining";
+		}else if(roll >=23 && roll <=29){
+			return "Plasma Rifle, 1d10 Charges Remaining";
+		}else if(roll >=30 && roll <=42){
+			return "Gauss Auto Rifle, 2d10 + 5 Charges Remaining";
+		}else if(roll >=43 && roll <=57){
+			return "Gauss Rifle, 2d10 + 5 Charges Remaining";
+		}else if(roll >=58 && roll <=68){
+			return "Laser Rifle, 2d10 + 5 Charges Remaining";
+		}else if(roll >=69 && roll <=79){
+			return "Maser Rifle, 2d10 + 5 Charges Remaining";
+		}else if(roll >=80 && roll <=84){
+			return "Radiation Rifle, 1d10 Charges Remaining";
+		}else if(roll >=85 && roll <=92){
+			return "Stun Rifle, 1d10 Charges Remaining";
+		}else if(roll >=93 && roll <=100){
+			return "X-Laser Rifle, 1d10 Charges Remaining";
+		}
 	}
 
 	public String advancedArmor() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=11){
+			return "Ballistic Nylon Armor";
+		}else if(roll >=12 && roll <=23){
+			return "Metal Insert";
+		}else if(roll >=24 && roll <=35){
+			return "Plastic Plate";
+		}else if(roll >=36 && roll <=47){
+			return "Plastex";
+		}else if(roll >=48 && roll <=59){
+			return "Advanced Metal Armor";
+		}else if(roll >=60 && roll <=70){
+			return "LazAb Armor";
+		}else if(roll >=71 && roll <=80){
+			return "Environmental Armor";
+		}else if(roll >=81 && roll <=85){
+			return "Scout EMA";
+		}else if(roll >=86 && roll <=90){
+			return "Light EMA";
+		}else if(roll >=91 && roll <=95){
+			return "Medium EMA";
+		}else if(roll >=96 && roll <=100){
+			return "Heavy EMA";
+		}
 	}
 
 	public String powerSources() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=14){
+			return "Power Cell";
+		}else if(roll >=15 && roll <=29){
+			return "Power Pack";
+		}else if(roll >=30 && roll <=44){
+			return "Power Clip";
+		}else if(roll >=45 && roll <=59){
+			return "Power Beltpack";
+		}else if(roll >=60 && roll <=74){
+			return "Power Backpack";
+		}else if(roll >=75 && roll <=89){
+			return "Minifusion Cell";
+		}else if(roll >=90 && roll <=97){
+			return "Plutonium Clip";
+		}else if(roll >=98 && roll <=99){
+			return "Radioactive Battery";
+		}else if(roll =100){
+			return "Universal Power Source";
+		}
 	}
 
-	public String grenades() {
-		return "foo";
+	public String grenades() { //All grenades come in 1d4 boxes
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=6){
+			return "Blood Agent Grenade";
+		}else if(roll >=7 && roll <=13){
+			return "Concussion Grenade";
+		}else if(roll >=14 && roll <=19){
+			return "Dynamite";
+		}else if(roll >=20 && roll <=25){
+			return "Energy Grenade";
+		}else if(roll >=26 && roll <=31){
+			return "Frag Grenade";
+		}else if(roll >=32 && roll <=37){
+			return "Inferno Grenade";
+		}else if(roll >=38 && roll <=43){
+			return "Irritant Gas Grenade";
+		}else if(roll >=44 && roll <=49){
+			return "Molotov Cocktail";
+		}else if(roll >=50 && roll <=55){
+			return "Mutation Grenade";
+		}else if(roll >=56 && roll <=61){
+			return "Nerve Gas Grenade";
+		}else if(roll >=62 && roll <=67){
+			return "Photon Grenade - Lethal";
+		}else if(roll >=68 && roll <=75){
+			return "Photon Grenade - Nonlethal";
+		}else if(roll >=76 && roll <=82){
+			return "Plasma Grenade";
+		}else if(roll >=83 && roll <=88){
+			return "Shock Grenade";
+		}else if(roll >=89 && roll <=100){
+			return "Smoke Grenade";
+		}
 	}
 
 	public String bombsAndMissiles() {
-		return "foo";
+		int roll = rand.nextInt(100)+1;
+		if(roll >=1 && roll <=8){
+			return "Bio Toxin Bomb";
+		}else if(roll >=9 && roll <=17){
+			return "Concussion Bomb";
+		}else if(roll >=18 && roll <=21){
+			return "Light Anti-Tank Weapon";
+		}else if(roll >=22 && roll <=31){
+			return "Mutation Bomb";
+		}else if(roll >=32 && roll <=41){
+			return "Negation Bomb";
+		}else if(roll >=42 && roll <=48){
+			return "Plasma Bomb";
+		}else if(roll >=49 && roll <=50){
+			return "Radiation Bomb - Dirty";
+		}else if(roll >=51 && roll <=59){
+			return "Radiation Bomb";
+		}else if(roll >=60 && roll <=69){
+			return "Rocket Propelled Grenade Launcher";
+		}else if(roll >=70 && roll <=81){
+			return "Satchel A";
+		}else if(roll >=82 && roll <=86){
+			return "Satchel B";
+		}else if(roll >=87 && roll <=90){
+			return "Satchel C";
+		}else if(roll >=91 && roll <=93){
+			return "Satchel D";
+		}else if(roll >=94 && roll <=95){
+			return "Micro-Missile Launcher, 2d12 + 1 Micro-Missiles";
+		}else if(roll >=96 && roll <=97){
+			return "Mini-Missile Launcher, 2d6 + 1 Mini-Missiles";
+		}else if(roll >=98 && roll <=100){
+			return "Missile Launcher, 1d6 + 1 Missiles";
+		}
 	}
 
 	public String gizmos() {
