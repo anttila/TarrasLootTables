@@ -170,13 +170,13 @@ public class LootTable {
 		}
 		System.out.print("You receive: ");
 		if (gold != 0) {
-			System.out.print(gold + " Gold Pieces ");
+			System.out.printf("%,d Gold Pieces ", gold);
 		}
 		if (silver != 0) {
-			System.out.print(silver + " Silver Pieces ");
+			System.out.printf("%,d Silver Pieces ", silver);
 		}
 		if (copper != 0) {
-			System.out.print(copper + " Copper Pieces ");
+			System.out.printf("%,d Copper Pieces ", copper);
 		}
 		if (artifacts.size() != 0) {
 			for (String str : artifacts) {
