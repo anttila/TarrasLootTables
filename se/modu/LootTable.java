@@ -109,6 +109,8 @@ public class LootTable {
 	}
 
 	public void roll() {
+		
+		// TODO: Behaviour of stacks aren't consistant with HC 8 and 9 compared to the rest
 		setup();
 		int copper = 0;
 		int silver = 0;
@@ -149,24 +151,99 @@ public class LootTable {
 			silver = rollDiePercentage(1, 4, 0, 25, "silver") * 1000;
 		} else if (hoardClass == 14) {
 			gold = rollDiePercentage(2, 4, 0, 30, "gold") * 5 * 1000;
-			artifacts = rollArtifactPercentage(3, 30, "any 1");
-			artifacts.add("3 foodstuffs and junk");
+			if(rand.nextInt(100)+1 <= 30){
+				artifacts.add(1+" "+randomArtifactType());
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+foodstuffsAndJunk());
+				}
+			}
 		} else if (hoardClass == 15) {
-
+			copper = rollDiePercentage(2,12,0,25,"copper")*1000;
+			silver = rollDiePercentage(1,100,0,60,"silver")*1000;
+			gold = rollDiePercentage(2,4,0,70,"gold")*10*1000;
+			if(rand.nextInt(100)+1 <= 18){
+				for(int i=0;i<4;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+drugsAndChems());
+				artifacts.add(1+" "+gizmos());
+			}
 		} else if (hoardClass == 16) {
-
+			gold = rollDiePercentage(1,8,0,60,"gold")*10*1000;
+			if(rand.nextInt(100)+1 <= 30){
+				for(int i=0;i<5;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+gizmos());
+			}
 		} else if (hoardClass == 17) {
-
+			silver = rollDiePercentage(4,6,40,0,"silver")*1000;
+			gold = rollDiePercentage(4,10,0,70,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 30){
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+randomArtifactTypeNoWeapons());
+				}
+				artifacts.add(1+" "+drugsAndChems());
+				artifacts.add(1+" "+gizmos());
+			}
 		} else if (hoardClass == 18) {
-
+			copper = rollDiePercentage(2,6,0,7,"copper")*1000;
+			silver = rollDiePercentage(1,10,0,35,"silver")*1000;
+			gold = rollDiePercentage(2,6,0,50,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 30){
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+gizmos());
+			}
 		} else if (hoardClass == 19) {
-
+			copper = rollDiePercentage(1,10,0,10,"copper")*1000;
+			silver = rollDiePercentage(1,10,0,15,"silver")*1000;
+			gold = rollDiePercentage(1,8,0,55,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 15){
+				for(int i=0;i<2;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+drugsAndChems());
+			}
 		} else if (hoardClass == 20) {
-
+			copper = rollDiePercentage(1,12,0,25,"copper")*1000;
+			silver = rollDiePercentage(4,6,0,45,"silver")*1000;
+			if(rand.nextInt(100)+1 <= 12){
+				for(int i=0;i<2;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+			}
 		} else if (hoardClass == 21) {
-
+			copper = rollDiePercentage(1,10,0,45,"copper")*1000;
+			silver = rollDiePercentage(3,6,0,55,"silver")*1000;
+			gold = rollDiePercentage(1,4,0,20,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 12){
+				int roll = rand.nextInt(3);
+				if(roll == 0){
+					artifacts.add(1+" "+advancedArmor());
+				} else if (roll == 1){
+					artifacts.add(1+" "+advancedMeleeWeapons());
+				} else if (roll == 2){
+					roll = rand.nextInt(3);
+					if(roll == 0){
+						artifacts.add(1+" "+primitiveFirearms());
+					} else if(roll == 0){
+						artifacts.add(1+" "+advancedPistols());
+					} else if(roll == 0){
+						artifacts.add(1+" "+advancedRifles());
+					}
+				}
+			}
 		} else if (hoardClass == 22) {
-
+			copper = rollDiePercentage(1,8,0,30,"copper")*1000;
+			silver = rollDiePercentage(2,6,0,60,"silver")*1000;
+			gold = rollDiePercentage(4,8,0,60,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 25){
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+			}
 		}
 		System.out.print("You receive: ");
 		if (gold != 0) {
@@ -180,7 +257,7 @@ public class LootTable {
 		}
 		if (artifacts.size() != 0) {
 			for (String str : artifacts) {
-				System.out.print(str + " ");
+				System.out.println(str + " ");
 			}
 		}
 		if (artifacts.size() == 0 && gold == 0 && silver == 0 && copper == 0) {
@@ -202,6 +279,25 @@ public class LootTable {
 		} else if (roll >= 26 && roll <= 33) {
 			return advancedRifles();
 		} else if (roll >= 34 && roll <= 41) {
+			return advancedArmor();
+		} else if (roll >= 42 && roll <= 50) {
+			return powerSources();
+		} else if (roll >= 51 && roll <= 59) {
+			return grenades();
+		} else if (roll >= 60 && roll <= 68) {
+			return bombsAndMissiles();
+		} else if (roll >= 69 && roll <= 79) {
+			return gizmos();
+		} else if (roll >= 80 && roll <= 90) {
+			return drugsAndChems();
+		} else {
+			return foodstuffsAndJunk();
+		}
+	}
+	
+	private String randomArtifactTypeNoWeapons() {
+		int roll = rand.nextInt(100) + 1 + 33; // This is really ugly, but I feel lazy
+		if (roll >= 34 && roll <= 41) {
 			return advancedArmor();
 		} else if (roll >= 42 && roll <= 50) {
 			return powerSources();
