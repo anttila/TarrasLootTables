@@ -10,7 +10,13 @@ public class LootTable {
 	private static Random rand;
 	private boolean showRolls;
 	private int hoardClass;
-
+	private int copper;
+	private int silver;
+	private int gold;
+	private int noOfRolls; 
+	private ArrayList<String> artifacts = new ArrayList<String>();
+	
+	
 	public LootTable() {
 		in = new Scanner(System.in);
 		rand = new Random();
@@ -20,14 +26,28 @@ public class LootTable {
 
 	private void setup() {
 		// Select which hoard class to use
+		copper = 0;
+		silver = 0;
+		gold = 0;
+		noOfRolls = 0;
+		artifacts = new ArrayList<String>();
 		hoardClass = -1;
 		while (hoardClass < 1 || hoardClass > 22) {
-			System.out.println("Hoard class: ");
+			System.out.print("Hoard class: ");
 			try {
 				hoardClass = in.nextInt();
 			} catch (Exception e) {
 				in.nextLine();
 				hoardClass = -1;
+			}
+		}
+		while(noOfRolls < 1){
+			System.out.print("Number of rolls: ");
+			try {
+				noOfRolls = in.nextInt();
+			} catch (Exception e) {
+				in.nextLine();
+				noOfRolls = -1;
 			}
 		}
 	}
@@ -108,142 +128,10 @@ public class LootTable {
 		return artifacts;
 	}
 
-	public void roll() {
-		
-		// TODO: Behaviour of stacks aren't consistant with HC 8 and 9 compared to the rest
+	public void start(){
 		setup();
-		int copper = 0;
-		int silver = 0;
-		int gold = 0;
-		ArrayList<String> artifacts = new ArrayList<String>();
-		if (hoardClass == 1) {
-			copper = rollDie(4, 6);
-		} else if (hoardClass == 2) {
-			silver = rollDie(2, 8, 1);
-		} else if (hoardClass == 3) {
-			gold = rollDie(1, 6);
-		} else if (hoardClass == 4) {
-			gold = rollDie(1, 8);
-		} else if (hoardClass == 5) {
-			gold = rollDie(1, 6) * 5;
-		} else if (hoardClass == 6) {
-			copper = rollDiePercentage(1, 100, 0, 70, "copper");
-			silver = rollDiePercentage(1, 100, 0, 5, "silver");
-			gold = rollDiePercentage(1, 100, 0, 5, "gold");
-			artifacts = rollArtifactPercentage(1, 3, "any");
-		} else if (hoardClass == 7) {
-			silver = rollDiePercentage(1, 100, 0, 25, "silver");
-			gold = rollDiePercentage(1, 100, 0, 10, "gold");
-			artifacts = rollArtifactPercentage(1, 7, "any");
-		} else if (hoardClass == 8) {
-			artifacts = rollDieArtifactPercentage(1, 4, 0, 45, "gizmos");
-		} else if (hoardClass == 9) {
-			artifacts = rollDieArtifactPercentage(2, 4, 0, 45, "drugs, chemicals and medical devices");
-		} else if (hoardClass == 10) {
-			gold = rollDiePercentage(2, 10, 0, 70, "gold") * 1000;
-		} else if (hoardClass == 11) {
-			gold = rollDiePercentage(2, 4, 0, 40, "gold") * 1000;
-		} else if (hoardClass == 12) {
-			silver = rollDiePercentage(1, 8, 0, 25, "silver") * 1000;
-			gold = rollDiePercentage(1, 4, 0, 15, "gold") * 1000;
-		} else if (hoardClass == 13) {
-			copper = rollDiePercentage(1, 6, 0, 25, "copper") * 1000;
-			silver = rollDiePercentage(1, 4, 0, 25, "silver") * 1000;
-		} else if (hoardClass == 14) {
-			gold = rollDiePercentage(2, 4, 0, 30, "gold") * 5 * 1000;
-			if(rand.nextInt(100)+1 <= 30){
-				artifacts.add(1+" "+randomArtifactType());
-				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+foodstuffsAndJunk());
-				}
-			}
-		} else if (hoardClass == 15) {
-			copper = rollDiePercentage(2,12,0,25,"copper")*1000;
-			silver = rollDiePercentage(1,100,0,60,"silver")*1000;
-			gold = rollDiePercentage(2,4,0,70,"gold")*10*1000;
-			if(rand.nextInt(100)+1 <= 18){
-				for(int i=0;i<4;i++){
-					artifacts.add(1+" "+randomArtifactType());
-				}
-				artifacts.add(1+" "+drugsAndChems());
-				artifacts.add(1+" "+gizmos());
-			}
-		} else if (hoardClass == 16) {
-			gold = rollDiePercentage(1,8,0,60,"gold")*10*1000;
-			if(rand.nextInt(100)+1 <= 30){
-				for(int i=0;i<5;i++){
-					artifacts.add(1+" "+randomArtifactType());
-				}
-				artifacts.add(1+" "+gizmos());
-			}
-		} else if (hoardClass == 17) {
-			silver = rollDiePercentage(4,6,40,0,"silver")*1000;
-			gold = rollDiePercentage(4,10,0,70,"gold")*1000;
-			if(rand.nextInt(100)+1 <= 30){
-				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+randomArtifactTypeNoWeapons());
-				}
-				artifacts.add(1+" "+drugsAndChems());
-				artifacts.add(1+" "+gizmos());
-			}
-		} else if (hoardClass == 18) {
-			copper = rollDiePercentage(2,6,0,7,"copper")*1000;
-			silver = rollDiePercentage(1,10,0,35,"silver")*1000;
-			gold = rollDiePercentage(2,6,0,50,"gold")*1000;
-			if(rand.nextInt(100)+1 <= 30){
-				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+randomArtifactType());
-				}
-				artifacts.add(1+" "+gizmos());
-			}
-		} else if (hoardClass == 19) {
-			copper = rollDiePercentage(1,10,0,10,"copper")*1000;
-			silver = rollDiePercentage(1,10,0,15,"silver")*1000;
-			gold = rollDiePercentage(1,8,0,55,"gold")*1000;
-			if(rand.nextInt(100)+1 <= 15){
-				for(int i=0;i<2;i++){
-					artifacts.add(1+" "+randomArtifactType());
-				}
-				artifacts.add(1+" "+drugsAndChems());
-			}
-		} else if (hoardClass == 20) {
-			copper = rollDiePercentage(1,12,0,25,"copper")*1000;
-			silver = rollDiePercentage(4,6,0,45,"silver")*1000;
-			if(rand.nextInt(100)+1 <= 12){
-				for(int i=0;i<2;i++){
-					artifacts.add(1+" "+randomArtifactType());
-				}
-			}
-		} else if (hoardClass == 21) {
-			copper = rollDiePercentage(1,10,0,45,"copper")*1000;
-			silver = rollDiePercentage(3,6,0,55,"silver")*1000;
-			gold = rollDiePercentage(1,4,0,20,"gold")*1000;
-			if(rand.nextInt(100)+1 <= 12){
-				int roll = rand.nextInt(3);
-				if(roll == 0){
-					artifacts.add(1+" "+advancedArmor());
-				} else if (roll == 1){
-					artifacts.add(1+" "+advancedMeleeWeapons());
-				} else if (roll == 2){
-					roll = rand.nextInt(3);
-					if(roll == 0){
-						artifacts.add(1+" "+primitiveFirearms());
-					} else if(roll == 0){
-						artifacts.add(1+" "+advancedPistols());
-					} else if(roll == 0){
-						artifacts.add(1+" "+advancedRifles());
-					}
-				}
-			}
-		} else if (hoardClass == 22) {
-			copper = rollDiePercentage(1,8,0,30,"copper")*1000;
-			silver = rollDiePercentage(2,6,0,60,"silver")*1000;
-			gold = rollDiePercentage(4,8,0,60,"gold")*1000;
-			if(rand.nextInt(100)+1 <= 25){
-				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+randomArtifactType());
-				}
-			}
+		for(int i=0;i<noOfRolls;i++){
+			roll();
 		}
 		System.out.print("You receive: ");
 		if (gold != 0) {
@@ -263,8 +151,150 @@ public class LootTable {
 		if (artifacts.size() == 0 && gold == 0 && silver == 0 && copper == 0) {
 			System.out.println("Nothing.");
 		}
+		String runAgain = "\0";
+		while(!(runAgain.equalsIgnoreCase("N") || runAgain.equalsIgnoreCase("Y"))){
+			System.out.print("Run again: ");
+			runAgain = in.next();
+		}
+		if(runAgain.equalsIgnoreCase("Y")){
+			System.out.println();
+			start();
+		}
+	}
+	
+	public void roll() {
+		
+		// TODO: Behaviour of stacks aren't consistant with HC 8 and 9 compared to the rest
 
-		// Get it to ask "Again?" to rerun
+		if (hoardClass == 1) {
+			copper += rollDie(4, 6);
+		} else if (hoardClass == 2) {
+			silver += rollDie(2, 8, 1);
+		} else if (hoardClass == 3) {
+			gold += rollDie(1, 6);
+		} else if (hoardClass == 4) {
+			gold += rollDie(1, 8);
+		} else if (hoardClass == 5) {
+			gold += rollDie(1, 6) * 5;
+		} else if (hoardClass == 6) {
+			copper += rollDiePercentage(1, 100, 0, 70, "copper");
+			silver += rollDiePercentage(1, 100, 0, 5, "silver");
+			gold += rollDiePercentage(1, 100, 0, 5, "gold");
+			artifacts.addAll(rollArtifactPercentage(1, 3, "any"));
+		} else if (hoardClass == 7) {
+			silver += rollDiePercentage(1, 100, 0, 25, "silver");
+			gold += rollDiePercentage(1, 100, 0, 10, "gold");
+			artifacts.addAll(rollArtifactPercentage(1, 7, "any"));
+		} else if (hoardClass == 8) {
+			artifacts.addAll(rollDieArtifactPercentage(1, 4, 0, 45, "gizmos"));
+		} else if (hoardClass == 9) {
+			artifacts.addAll(rollDieArtifactPercentage(2, 4, 0, 45, "drugs, chemicals and medical devices"));
+		} else if (hoardClass == 10) {
+			gold += rollDiePercentage(2, 10, 0, 70, "gold") * 1000;
+		} else if (hoardClass == 11) {
+			gold += rollDiePercentage(2, 4, 0, 40, "gold") * 1000;
+		} else if (hoardClass == 12) {
+			silver += rollDiePercentage(1, 8, 0, 25, "silver") * 1000;
+			gold += rollDiePercentage(1, 4, 0, 15, "gold") * 1000;
+		} else if (hoardClass == 13) {
+			copper += rollDiePercentage(1, 6, 0, 25, "copper") * 1000;
+			silver += rollDiePercentage(1, 4, 0, 25, "silver") * 1000;
+		} else if (hoardClass == 14) {
+			gold += rollDiePercentage(2, 4, 0, 30, "gold") * 5 * 1000;
+			if(rand.nextInt(100)+1 <= 30){
+				artifacts.add(1+" "+randomArtifactType());
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+foodstuffsAndJunk());
+				}
+			}
+		} else if (hoardClass == 15) {
+			copper += rollDiePercentage(2,12,0,25,"copper")*1000;
+			silver += rollDiePercentage(1,100,0,60,"silver")*1000;
+			gold += rollDiePercentage(2,4,0,70,"gold")*10*1000;
+			if(rand.nextInt(100)+1 <= 18){
+				for(int i=0;i<4;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+drugsAndChems());
+				artifacts.add(1+" "+gizmos());
+			}
+		} else if (hoardClass == 16) {
+			gold += rollDiePercentage(1,8,0,60,"gold")*10*1000;
+			if(rand.nextInt(100)+1 <= 30){
+				for(int i=0;i<5;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+gizmos());
+			}
+		} else if (hoardClass == 17) {
+			silver += rollDiePercentage(4,6,40,0,"silver")*1000;
+			gold += rollDiePercentage(4,10,0,70,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 30){
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+randomArtifactTypeNoWeapons());
+				}
+				artifacts.add(1+" "+drugsAndChems());
+				artifacts.add(1+" "+gizmos());
+			}
+		} else if (hoardClass == 18) {
+			copper += rollDiePercentage(2,6,0,7,"copper")*1000;
+			silver += rollDiePercentage(1,10,0,35,"silver")*1000;
+			gold += rollDiePercentage(2,6,0,50,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 30){
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+gizmos());
+			}
+		} else if (hoardClass == 19) {
+			copper += rollDiePercentage(1,10,0,10,"copper")*1000;
+			silver += rollDiePercentage(1,10,0,15,"silver")*1000;
+			gold += rollDiePercentage(1,8,0,55,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 15){
+				for(int i=0;i<2;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+				artifacts.add(1+" "+drugsAndChems());
+			}
+		} else if (hoardClass == 20) {
+			copper += rollDiePercentage(1,12,0,25,"copper")*1000;
+			silver += rollDiePercentage(4,6,0,45,"silver")*1000;
+			if(rand.nextInt(100)+1 <= 12){
+				for(int i=0;i<2;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+			}
+		} else if (hoardClass == 21) {
+			copper += rollDiePercentage(1,10,0,45,"copper")*1000;
+			silver += rollDiePercentage(3,6,0,55,"silver")*1000;
+			gold += rollDiePercentage(1,4,0,20,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 12){
+				int roll = rand.nextInt(3);
+				if(roll == 0){
+					artifacts.add(1+" "+advancedArmor());
+				} else if (roll == 1){
+					artifacts.add(1+" "+advancedMeleeWeapons());
+				} else if (roll == 2){
+					roll = rand.nextInt(3);
+					if(roll == 0){
+						artifacts.add(1+" "+primitiveFirearms());
+					} else if(roll == 0){
+						artifacts.add(1+" "+advancedPistols());
+					} else if(roll == 0){
+						artifacts.add(1+" "+advancedRifles());
+					}
+				}
+			}
+		} else if (hoardClass == 22) {
+			copper += rollDiePercentage(1,8,0,30,"copper")*1000;
+			silver += rollDiePercentage(2,6,0,60,"silver")*1000;
+			gold += rollDiePercentage(4,8,0,60,"gold")*1000;
+			if(rand.nextInt(100)+1 <= 25){
+				for(int i=0;i<3;i++){
+					artifacts.add(1+" "+randomArtifactType());
+				}
+			}
+		}
 
 	}
 
@@ -698,7 +728,7 @@ public class LootTable {
 	}
 
 	public static void main(String[] args) {
-		(new LootTable()).roll();
+		(new LootTable()).start();
 		//System.out.println((new LootTable()).advancedRifles());  //Testing tables
 	}
 
