@@ -1,5 +1,3 @@
-package se.modu;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -22,7 +20,7 @@ public class LootTable {
 		in = new Scanner(System.in);
 		rand = new Random();
 		
-		showRolls = true;
+		showRolls = true; //TODO: This is just a bookmark for Eclipse
 	}
 
 	private void setup() {
@@ -33,7 +31,7 @@ public class LootTable {
 		noOfRolls = 0;
 		artifacts = new HashMap<String,Integer>();
 		hoardClass = -1;
-		while (hoardClass < 0 || hoardClass > 22) {
+		while (hoardClass < 0 || hoardClass > 23) {
 			System.out.print("Hoard class: ");
 			try {
 				hoardClass = in.nextInt();
@@ -91,7 +89,11 @@ public class LootTable {
 		}
 		return false;
 	}
-
+	
+	private boolean juice() {
+		return ((rollDie(1,100) <= 90) ? true:false);
+	}
+	
 	private int rollDiePercentage(int noOfDie, int noOfSides, int modifier, int chance, String type) {
 		if (showRolls) {
 			System.out.print("Attempting to roll for " + type + ". ");
@@ -287,9 +289,22 @@ public class LootTable {
 					addArtifact(randomArtifactType());
 				}
 			}
+		} else if (hoardClass == 23) {								//Generate a random item from each loot table
+			int select = rollDie(1, 11);
+			System.out.println("Use result " +select +".");
+					addArtifact(primitiveFirearms());
+					addArtifact(advancedMeleeWeapons());
+					addArtifact(advancedPistols());
+					addArtifact(advancedRifles());
+					addArtifact(grenades());
+					addArtifact(advancedArmor());
+					addArtifact(powerSources());
+					addArtifact(bombsAndMissiles());
+					addArtifact(gizmos());
+					addArtifact(foodstuffsAndJunk());
+					addArtifact(drugsAndChems());
 		}
-
-	}
+}
 	
 	private void addArtifact(String artifact){
 		if(artifacts.containsKey(artifact)){
@@ -350,131 +365,219 @@ public class LootTable {
 		int roll = rand.nextInt(100)+1;
 		if(roll >=1 && roll <=7){
 			int ammo = rollDie(1, 6)*10;
-			return "Ammunition: " +ammo + " Rounds of ammo.";
+			return "Ammunition: " +ammo + " Rounds of ammo";
 		}else if(roll >=8 && roll <=17){
 			int ammo = rollDie(1, 10)+10;
-			return "Pistol - Automatic and " +ammo +  " Pistol Bullets.";
+			return "Pistol - Automatic and " +ammo +  " Pistol Bullets";
 		}else if(roll >=18 && roll <=30){
 			int ammo = rollDie(1, 6)+6;
-			return "Pistol - Revolver and " +ammo + " Revolver Bullets.";
+			return "Pistol - Revolver and " +ammo + " Revolver Bullets";
 		}else if(roll >=31 && roll <=36){
 			int ammo = rollDie(5, 10);
-			return "Sub Machinegun and " +ammo + " Sub Machinegun Bullets.";
+			return "Sub Machinegun and " +ammo + " Sub Machinegun Bullets";
 		}else if(roll >=37 && roll <=41){
 			int ammo = rollDie(3, 12);
-			return "Rifle - Carbine and " +ammo + " Rifle Bullets.";
+			return "Rifle - Carbine and " +ammo + " Rifle Bullets";
 		}else if(roll >=42 && roll <=52){
 			int ammo = rollDie(5, 10);
-			return "Rifle - Automatic and " +ammo + " Rifle Bullets.";
+			return "Rifle - Automatic and " +ammo + " Rifle Bullets";
 		}else if(roll >=53 && roll <=59){
 			int ammo = rollDie(3, 12);
-			return "Rifle - Sport and " +ammo + " Rifle Bullets.";
+			return "Rifle - Sport and " +ammo + " Rifle Bullets";
 		}else if(roll >=60 && roll <=69){
 			int ammo = rollDie(1, 6)+5;
-			return "Shotgun - Single and " +ammo + " Shotgun Shells.";
+			return "Shotgun - Single and " +ammo + " Shotgun Shells";
 		}else if(roll >=70 && roll <=78){
 			int ammo = rollDie(1, 10)+10;
-			return "Shotgun - Automatic and " +ammo + " Shotgun Shells.";
+			return "Shotgun - Automatic and " +ammo + " Shotgun Shells";
 		}else if(roll >=79 && roll <=81){
 			int ammo = rollDie(1, 3)+1;
-			return "Cannon and " +ammo + " Cannon Shells.";
+			return "Cannon and " +ammo + " Cannon Shells";
 		}else if(roll >=82 && roll <=90){
 			int ammo = rollDie(1, 6);
-			return "Grenade Launcher and " +ammo + " Launcher Grenades.";
+			return "Grenade Launcher and " +ammo + " Launcher Grenades";
 		} else {
 			int ammo = rollDie(1, 12)*10;
-			return "Machinegun and " +ammo + " Machinegun Bullets.";
+			return "Machinegun and " +ammo + " Machinegun Bullets";
 		}
 	}
 
 	public String advancedMeleeWeapons() {
 		int roll = rand.nextInt(100)+1;
 		if(roll >=1 && roll <=11){
-			int ammo = rollDie(4, 10);
-			return "Energy Baton with " +ammo + " Charges Remaining.";
+			if (juice()) {
+				int ammo = rollDie(4, 10);
+				return "Energy Baton with " +ammo + " Charges Remaining";
+			} else {
+				return "Discharged Energy Baton";
+			}
 		}else if(roll >=12 && roll <=23){
-			int ammo = rollDie(4, 10);
-			return "Shock Gloves with " +ammo + " Charges Remaining.";
+			if (juice()) {
+				int ammo = rollDie(4, 10);
+				return "Shock Gloves with " +ammo + " Charges Remaining";
+			} else {
+				return "Discharged Shock Gloves";
+			}
 		}else if(roll >=24 && roll <=35){
-			int ammo = rollDie(4, 10);
-			return "Shock-Field Glove with " +ammo + " Charges Remaining.";
+			if (juice()) {
+				int ammo = rollDie(4, 10);
+				return "Shock-Field Glove with " +ammo + " Charges Remaining";
+			} else {
+				return "Discharged Shock-Field Glove";
+			}
 		}else if(roll >=36 && roll <=47){
-			int ammo = rollDie(4, 10);
-			return "Stun Baton with " +ammo + " Charges Remaining.";
+			if (juice()) {
+				int ammo = rollDie(4, 10);
+				return "Stun Baton with " +ammo + " Charges Remaining";
+			} else {
+				return "Discharged Stun Baton";
+			}
 		}else if(roll >=48 && roll <=59){
-			return "Vibro Dagger, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered" )+".";
+			return "Vibro Dagger, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}else if(roll >=60 && roll <=71){
-			return "Vibro Sword, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered" )+".";
+			return "Vibro Sword, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}else if(roll >=72 && roll <=81){
-			return "Warp-Field Dagger, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered" )+".";
+			return "Warp-Field Dagger, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}else if(roll >=82 && roll <=91){
-			return "Warp-Field Mace, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered" )+".";
+			return "Warp-Field Mace, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else {
-			return "Warp-Field Sword, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered" )+".";
+			return "Warp-Field Sword, " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}
 	}
 
 	public String advancedPistols() {
 		int roll = rand.nextInt(100)+1;
 		if(roll >=1 && roll <=15){
-			int charge = rollDie(1, 12, 5);
-			return "Gauss Machine Pistol with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 12, 5);
+				return "Gauss Machine Pistol with " +charge +" Charges Remaining";
+			} else {
+				return "Discharged Gauss Machine Pistol";
+			}
 		}else if(roll >=16 && roll <=30){
-			int charge = rollDie(1, 10, 5);
-			return "Gauss Pistol Mk 1 with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 5);
+				return "Gauss Pistol Mk 1 with " +charge +" Charges Remaining";
+			} else {
+				return "Discharged Gauss Pistol Mk 1";
+			}
 		}else if(roll >=31 && roll <=37){
-			int charge = rollDie(1, 10, 5);
-			return "Laser Pistol Mk 1 with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 5);
+				return "Laser Pistol Mk 1 with " +charge +" Charges Remaining";
+			} else { 
+				return "Discharged Laser Pistol Mk 1";
+			}
 		}else if(roll >=38 && roll <=54){
-			int charge = rollDie(1, 10, 5);
-			return "Laser Pistol Mk 2 with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 5);
+				return "Laser Pistol Mk 2 with " +charge +" Charges Remaining";
+			} else { 
+				return "Discharged Laser Pistol Mk 2";
+			}
 		}else if(roll >=55 && roll <=69){
-			int charge = rollDie(1, 10, 5);
-			return "Maser Pistol with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 5);
+				return "Maser Pistol with " +charge +" Charges Remaining";
+			} else {
+				return "Discharged Maser Pistol";
+			}
 		}else if(roll >=70 && roll <=84){
-			int charge = rollDie(1, 10, 5);
-			return "Plasma Pistol with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 5);
+				return "Plasma Pistol with " +charge +" Charges Remaining";
+			} else {
+				return "Discharged Plasma Pistol";
+			}
 		} else {
-			int charge = rollDie(1, 10, 5);
-			return "Stun Pistol with " +charge +" Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 5);
+				return "Stun Pistol with " +charge +" Charges Remaining";
+			} else {
+				return "Discharged Stun Pistol";
+			}
 		}
 	}
 
 	public String advancedRifles() {
 		int roll = rand.nextInt(100)+1;
 		if(roll >=1 && roll <=5){
-			int charge = rollDie(1, 10, 1);
-			return "Blaster Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "Blaster Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Blaster Rifle";
+			}
 		}else if(roll >=6 && roll <=16){
-			int charge = rollDie(1, 10, 1);
-			return "EMP Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "EMP Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged EMP Rifle";
+			}
 		}else if(roll >=17 && roll <=22){
-			int charge = rollDie(1, 10, 1);
-			return "Fusion Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "Fusion Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Fusion Rifle";
+			}
 		}else if(roll >=23 && roll <=29){
-			int charge = rollDie(1, 10, 1);
-			return "Plasma Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "Plasma Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Plasma Rifle";
+			}
 		}else if(roll >=30 && roll <=42){
-			int charge = rollDie(2, 10, 5);
-			return "Gauss Auto Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(2, 10, 5);
+				return "Gauss Auto Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Gauss Auto Rifle";
+			}
 		}else if(roll >=43 && roll <=57){
-			int charge = rollDie(2, 12, 5);
-			return "Gauss Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(2, 12, 5);
+				return "Gauss Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Gauss Rifle";
+			}
 		}else if(roll >=58 && roll <=68){
-			int charge = rollDie(2, 10, 5);
-			return "Laser Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(2, 10, 5);
+				return "Laser Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Laser Rifle";
+			}
 		}else if(roll >=69 && roll <=79){
-			int charge = rollDie(2, 10, 5);
-			return "Maser Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(2, 10, 5);
+				return "Maser Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Maser Rifle";
+			}
 		}else if(roll >=80 && roll <=84){
-			int charge = rollDie(1, 10, 1);
-			return "Radiation Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "Radiation Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Radiation Rifle";
+			}
 		}else if(roll >=85 && roll <=92){
-			int charge = rollDie(1, 10, 1);
-			return "Stun Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "Stun Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged Stun Rifle";
+			}
 		} else {
-			int charge = rollDie(1, 10, 1);
-			return "X-Laser Rifle with " +charge + " Charges Remaining.";
+			if (juice()) {
+				int charge = rollDie(1, 10, 1);
+				return "X-Laser Rifle with " +charge + " Charges Remaining";
+			} else {
+				return "Discharged X-Laser Rifle";
+			}
 		}
 	}
 
@@ -493,15 +596,15 @@ public class LootTable {
 		}else if(roll >=60 && roll <=70){
 			return "LazAb Armor";
 		}else if(roll >=71 && roll <=80){
-			return "Environmental Armor";
+			return "Environmental Armor: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}else if(roll >=81 && roll <=85){
-			return "Scout EMA";
+			return "Scout EMA: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}else if(roll >=86 && roll <=90){
-			return "Light EMA";
+			return "Light EMA: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}else if(roll >=91 && roll <=95){
-			return "Medium EMA";
+			return "Medium EMA: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else {
-			return "Heavy EMA";
+			return "Heavy EMA: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}
 	}
 
@@ -586,15 +689,15 @@ public class LootTable {
 			return "Rocket Propelled Grenade Launcher";
 		}else if(roll >=70 && roll <=81){
 			int bomb = rollDie(1,4);
-			return +bomb + "x Satchel A";
+			return +bomb + "x Satchel Charge A";
 		}else if(roll >=82 && roll <=86){
 			int bomb = rollDie(1,3);
-			return +bomb + "x Satchel B";
+			return +bomb + "x Satchel Charge B";
 		}else if(roll >=87 && roll <=90){
 			int bomb = rollDie(1,2);
-			return +bomb + "x Satchel C";
+			return +bomb + "x Satchel Charge C";
 		}else if(roll >=91 && roll <=93){
-			return "1x Satchel D";
+			return "1x Satchel Charge D";
 		}else if(roll >=94 && roll <=95){
 			int rocket = rollDie(2, 12, 1);
 			return "Micro-Missile Launcher and a box containing " +rocket +" Micro-Missiles.";
@@ -612,7 +715,7 @@ public class LootTable {
 		if (roll >= 1 && roll <= 5) {
 			return "Advanced Breathing Apparatus";
 		} else if (roll >= 6 && roll <= 9) {
-			return "Autograpnel";
+			return "Autograpnel: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 10 && roll <= 13) {
 			return "Boron Solution Spray";
 		} else if (roll >= 14 && roll <= 18) {
@@ -620,41 +723,41 @@ public class LootTable {
 		} else if (roll >= 19 && roll <= 23) {
 			return "Clones";
 		} else if (roll >= 24 && roll <= 27) {
-			return "Communicator";
+			return "Communicator: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 28 && roll <= 31) {
-			return "Electronically Responsive Notation Instrument (Ernie)";
+			return "Electronically Responsive Notation Instrument (Ernie): " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 32 && roll <= 35) {
 			return "Firestarter Cube";
 		} else if (roll >= 36 && roll <= 38) {
-			return "Flashlight";
+			return "Flashlight: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 39 && roll <= 42) {
-			return "Force Screen Belt";
+			return "Force Screen Belt: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 43 && roll <= 48) {
 			return "Gas Mask";
 		} else if (roll >= 49 && roll <= 53) {
 			return "Gas Mask Filter";
 		} else if (roll >= 54 && roll <= 57) {
-			return "Chemical Sensor";
+			return "Chemical Sensor: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 58 && roll <= 61) {
-			return "Geiger Counter";
+			return "Geiger Counter: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 62 && roll <= 66) {
 			return "Rad Tab";
 		} else if (roll >= 67 && roll <= 71) {
 			return "Infra-Red Goggles";
 		} else if (roll >= 72 && roll <= 76) {
-			return "Motion Detector";
+			return "Motion Detector: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 77 && roll <= 81) {
 			return "Optic Scanner";
 		} else if (roll >= 82 && roll <= 86) {
-			return "Portable Detection Radar";
+			return "Portable Detection Radar: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 87 && roll <= 91) {
-			return "Power Fist";
+			return "Power Fist: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 92 && roll <= 95) {
-			return "UV Sterilizer";
+			return "UV Sterilizer: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 96 && roll <= 98) {
-			return "Water Purifier";
+			return "Water Purifier: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else {
-			return "X-Ray Goggles";
+			return "X-Ray Goggles: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}
 
 	}
@@ -686,13 +789,13 @@ public class LootTable {
 		} else if (roll >= 70 && roll <= 75) {
 			return "Truth Serum";
 		} else if (roll >= 76 && roll <= 83) {
-			return "Diagnostic Scanner";
+			return "Diagnostic Scanner: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 84 && roll <= 91) {
-			return "Healing Pack";
+			return "Healing Pack: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 92 && roll <= 98) {
 			return "Ready Syringe";
 		} else {
-			return "Regeneration Tank";
+			return "Regeneration Tank: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		}
 	}
 
@@ -711,7 +814,7 @@ public class LootTable {
 		} else if (roll >= 39 && roll <= 45) {
 			return "Synthihol";
 		} else if (roll >= 46 && roll <= 51) {
-			return "Hologram Projector";
+			return "Hologram Projector: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else if (roll >= 52 && roll <= 56) {
 			return "Identity Card";
 		} else if (roll >= 57 && roll <= 67) {
@@ -723,7 +826,7 @@ public class LootTable {
 		} else if (roll >= 83 && roll <= 87) {
 			return "Magnesium Firestarter";
 		} else if (roll >= 88 && roll <= 94) {
-			return "Portable Stove";
+			return "Portable Stove: " +((rollDie(1,100) <= 90) ? "Powered": "Unpowered");
 		} else {
 			return "Survival Kit";
 		}
@@ -731,7 +834,7 @@ public class LootTable {
 
 	public static void main(String[] args) {
 		(new LootTable()).start();
-		//System.out.println((new LootTable()).grenades());  //Testing tables
+		//System.out.println((new LootTable()).advancedMeleeWeapons());  //Testing tables
 	}
 
 }
