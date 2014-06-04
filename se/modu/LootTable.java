@@ -33,7 +33,7 @@ public class LootTable {
 		noOfRolls = 0;
 		artifacts = new HashMap<String,Integer>();
 		hoardClass = -1;
-		while (hoardClass < 1 || hoardClass > 22) {
+		while (hoardClass < 0 || hoardClass > 22) {
 			System.out.print("Hoard class: ");
 			try {
 				hoardClass = in.nextInt();
@@ -107,7 +107,8 @@ public class LootTable {
 		for(int i=0;i<noOfRolls;i++){
 			roll();
 		}
-		System.out.println("You receive: ");
+		System.out.print("==================================================\n");
+		System.out.println("You receive:\n");
 		if (gold != 0) {
 			System.out.printf("%,d Gold Pieces \n", gold);
 		}
@@ -129,6 +130,7 @@ public class LootTable {
 		}
 		String runAgain = "\0";
 		while(!(runAgain.equalsIgnoreCase("N") || runAgain.equalsIgnoreCase("Y"))){
+			System.out.print("==================================================\n");
 			System.out.print("Run again: ");
 			runAgain = in.next();
 		}
@@ -141,8 +143,9 @@ public class LootTable {
 	public void roll() {
 		
 		// TODO: Behaviour of stacks aren't consistant with HC 8 and 9 compared to the rest
-
-		if (hoardClass == 1) {
+		if (hoardClass == 0) {
+			addArtifact(randomArtifactType());
+		} else if (hoardClass == 1) {
 			copper += rollDie(4, 6);
 		} else if (hoardClass == 2) {
 			silver += rollDie(2, 8, 1);
@@ -728,7 +731,7 @@ public class LootTable {
 
 	public static void main(String[] args) {
 		(new LootTable()).start();
-		//System.out.println((new LootTable()).advancedRifles());  //Testing tables
+		//System.out.println((new LootTable()).grenades());  //Testing tables
 	}
 
 }
