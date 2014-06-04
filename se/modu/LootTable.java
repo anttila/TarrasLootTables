@@ -101,33 +101,6 @@ public class LootTable {
 		return 0;
 	}
 
-	private ArrayList<String> rollDieArtifactPercentage(int noOfDie, int noOfSides, int modifier, int chance,
-			String type) {
-		// Not sure how well this one will work out, we'll see
-
-		ArrayList<String> artifacts = new ArrayList<String>();
-		if (showRolls) {
-			System.out.print("Attempting to roll for artifacts. ");
-		}
-		if (percentageRoll(chance)) {
-			artifacts.add(rollDie(noOfDie, noOfSides, modifier) + " " + type);
-		}
-		return artifacts;
-	}
-
-	private ArrayList<String> rollArtifactPercentage(int noOfArtifacts, int chance, String type) {
-		// Not sure how well this one will work out, we'll see
-
-		ArrayList<String> artifacts = new ArrayList<String>();
-		if (showRolls) {
-			System.out.print("Attempting to roll for artifacts. ");
-		}
-		if (percentageRoll(chance)) {
-			artifacts.add(noOfArtifacts + " " + type);
-		}
-		return artifacts;
-	}
-
 	public void start(){
 		setup();
 		for(int i=0;i<noOfRolls;i++){
@@ -179,16 +152,30 @@ public class LootTable {
 		} else if (hoardClass == 6) {
 			copper += rollDiePercentage(1, 100, 0, 70, "copper");
 			silver += rollDiePercentage(1, 100, 0, 5, "silver");
-			gold += rollDiePercentage(1, 100, 0, 5, "gold");
-			artifacts.addAll(rollArtifactPercentage(1, 3, "any"));
+			gold += rollDiePercentage(1, 100, 0, 5, "gold");	
+			if(rand.nextInt(100)+1 <= 3){
+				artifacts.add(1+" "+randomArtifactType());
+			}
 		} else if (hoardClass == 7) {
 			silver += rollDiePercentage(1, 100, 0, 25, "silver");
 			gold += rollDiePercentage(1, 100, 0, 10, "gold");
-			artifacts.addAll(rollArtifactPercentage(1, 7, "any"));
+			if(rand.nextInt(100)+1 <= 7){
+				artifacts.add(1+" "+randomArtifactType());
+			}
 		} else if (hoardClass == 8) {
-			artifacts.addAll(rollDieArtifactPercentage(1, 4, 0, 45, "gizmos"));
+			if(rand.nextInt(100)+1 <= 45){
+				int noOfGizmos = rollDie(1,4,0);
+				for(int i=0;i<noOfGizmos;i++){
+					artifacts.add(1+" "+gizmos());
+				}
+			}
 		} else if (hoardClass == 9) {
-			artifacts.addAll(rollDieArtifactPercentage(2, 4, 0, 45, "drugs, chemicals and medical devices"));
+			if(rand.nextInt(100)+1 <= 45){
+				int noOfMeds = rollDie(2,4,0);
+				for(int i=0;i<noOfMeds;i++){
+					artifacts.add(1+" "+drugsAndChems());
+				}
+			}
 		} else if (hoardClass == 10) {
 			gold += rollDiePercentage(2, 10, 0, 70, "gold") * 1000;
 		} else if (hoardClass == 11) {
