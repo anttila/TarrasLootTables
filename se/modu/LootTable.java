@@ -1,6 +1,5 @@
 package se.modu;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -192,7 +191,7 @@ public class LootTable {
 			silver += rollDiePercentage(1, 4, 0, 25, "silver") * 1000;
 		} else if (hoardClass == 14) {
 			gold += rollDiePercentage(2, 4, 0, 30, "gold") * 5 * 1000;
-			if(rand.nextInt(100)+1 <= 30){
+			if(rand.nextInt(100)+1 <= 20){
 				addArtifact(randomArtifactType());
 				for(int i=0;i<3;i++){
 					addArtifact(foodstuffsAndJunk());
