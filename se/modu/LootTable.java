@@ -108,7 +108,7 @@ public class LootTable {
 		for(int i=0;i<noOfRolls;i++){
 			roll();
 		}
-		System.out.print("You receive: ");
+		System.out.println("You receive: ");
 		if (gold != 0) {
 			System.out.printf("%,d Gold Pieces \n", gold);
 		}
