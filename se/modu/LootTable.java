@@ -1,6 +1,8 @@
 package se.modu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class LootTable {
 	private int silver;
 	private int gold;
 	private int noOfRolls; 
-	private ArrayList<String> artifacts = new ArrayList<String>();
+	private HashMap<String,Integer> artifacts = new HashMap<String,Integer>();
 	
 	
 	public LootTable() {
@@ -30,7 +32,7 @@ public class LootTable {
 		silver = 0;
 		gold = 0;
 		noOfRolls = 0;
-		artifacts = new ArrayList<String>();
+		artifacts = new HashMap<String,Integer>();
 		hoardClass = -1;
 		while (hoardClass < 1 || hoardClass > 22) {
 			System.out.print("Hoard class: ");
@@ -117,8 +119,10 @@ public class LootTable {
 			System.out.printf("%,d Copper Pieces \n", copper);
 		}
 		if (artifacts.size() != 0) {
-			for (String str : artifacts) {
-				System.out.println(str + " ");
+			for (Map.Entry<String, Integer> entry : artifacts.entrySet()) {
+			    String key = entry.getKey();
+			    Integer value = entry.getValue();
+			    System.out.println(value + " " + key);
 			}
 		}
 		if (artifacts.size() == 0 && gold == 0 && silver == 0 && copper == 0) {
@@ -154,26 +158,26 @@ public class LootTable {
 			silver += rollDiePercentage(1, 100, 0, 5, "silver");
 			gold += rollDiePercentage(1, 100, 0, 5, "gold");	
 			if(rand.nextInt(100)+1 <= 3){
-				artifacts.add(1+" "+randomArtifactType());
+				addArtifact(randomArtifactType());
 			}
 		} else if (hoardClass == 7) {
 			silver += rollDiePercentage(1, 100, 0, 25, "silver");
 			gold += rollDiePercentage(1, 100, 0, 10, "gold");
 			if(rand.nextInt(100)+1 <= 7){
-				artifacts.add(1+" "+randomArtifactType());
+				addArtifact(randomArtifactType());
 			}
 		} else if (hoardClass == 8) {
 			if(rand.nextInt(100)+1 <= 45){
 				int noOfGizmos = rollDie(1,4,0);
 				for(int i=0;i<noOfGizmos;i++){
-					artifacts.add(1+" "+gizmos());
+					addArtifact(gizmos());
 				}
 			}
 		} else if (hoardClass == 9) {
 			if(rand.nextInt(100)+1 <= 45){
 				int noOfMeds = rollDie(2,4,0);
 				for(int i=0;i<noOfMeds;i++){
-					artifacts.add(1+" "+drugsAndChems());
+					addArtifact(drugsAndChems());
 				}
 			}
 		} else if (hoardClass == 10) {
@@ -189,9 +193,9 @@ public class LootTable {
 		} else if (hoardClass == 14) {
 			gold += rollDiePercentage(2, 4, 0, 30, "gold") * 5 * 1000;
 			if(rand.nextInt(100)+1 <= 30){
-				artifacts.add(1+" "+randomArtifactType());
+				addArtifact(randomArtifactType());
 				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+foodstuffsAndJunk());
+					addArtifact(foodstuffsAndJunk());
 				}
 			}
 		} else if (hoardClass == 15) {
@@ -200,28 +204,28 @@ public class LootTable {
 			gold += rollDiePercentage(2,4,0,70,"gold")*10*1000;
 			if(rand.nextInt(100)+1 <= 18){
 				for(int i=0;i<4;i++){
-					artifacts.add(1+" "+randomArtifactType());
+					addArtifact(randomArtifactType());
 				}
-				artifacts.add(1+" "+drugsAndChems());
-				artifacts.add(1+" "+gizmos());
+				addArtifact(drugsAndChems());
+				addArtifact(gizmos());
 			}
 		} else if (hoardClass == 16) {
 			gold += rollDiePercentage(1,8,0,60,"gold")*10*1000;
 			if(rand.nextInt(100)+1 <= 30){
 				for(int i=0;i<5;i++){
-					artifacts.add(1+" "+randomArtifactType());
+					addArtifact(randomArtifactType());
 				}
-				artifacts.add(1+" "+gizmos());
+				addArtifact(gizmos());
 			}
 		} else if (hoardClass == 17) {
 			silver += rollDiePercentage(4,6,40,0,"silver")*1000;
 			gold += rollDiePercentage(4,10,0,70,"gold")*1000;
 			if(rand.nextInt(100)+1 <= 30){
 				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+randomArtifactTypeNoWeapons());
+					addArtifact(randomArtifactTypeNoWeapons());
 				}
-				artifacts.add(1+" "+drugsAndChems());
-				artifacts.add(1+" "+gizmos());
+				addArtifact(drugsAndChems());
+				addArtifact(gizmos());
 			}
 		} else if (hoardClass == 18) {
 			copper += rollDiePercentage(2,6,0,7,"copper")*1000;
@@ -229,9 +233,9 @@ public class LootTable {
 			gold += rollDiePercentage(2,6,0,50,"gold")*1000;
 			if(rand.nextInt(100)+1 <= 30){
 				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+randomArtifactType());
+					addArtifact(randomArtifactType());
 				}
-				artifacts.add(1+" "+gizmos());
+				addArtifact(gizmos());
 			}
 		} else if (hoardClass == 19) {
 			copper += rollDiePercentage(1,10,0,10,"copper")*1000;
@@ -239,16 +243,16 @@ public class LootTable {
 			gold += rollDiePercentage(1,8,0,55,"gold")*1000;
 			if(rand.nextInt(100)+1 <= 15){
 				for(int i=0;i<2;i++){
-					artifacts.add(1+" "+randomArtifactType());
+					addArtifact(randomArtifactType());
 				}
-				artifacts.add(1+" "+drugsAndChems());
+				addArtifact(drugsAndChems());
 			}
 		} else if (hoardClass == 20) {
 			copper += rollDiePercentage(1,12,0,25,"copper")*1000;
 			silver += rollDiePercentage(4,6,0,45,"silver")*1000;
 			if(rand.nextInt(100)+1 <= 12){
 				for(int i=0;i<2;i++){
-					artifacts.add(1+" "+randomArtifactType());
+					addArtifact(randomArtifactType());
 				}
 			}
 		} else if (hoardClass == 21) {
@@ -258,17 +262,17 @@ public class LootTable {
 			if(rand.nextInt(100)+1 <= 12){
 				int roll = rand.nextInt(3);
 				if(roll == 0){
-					artifacts.add(1+" "+advancedArmor());
+					addArtifact(advancedArmor());
 				} else if (roll == 1){
-					artifacts.add(1+" "+advancedMeleeWeapons());
+					addArtifact(advancedMeleeWeapons());
 				} else if (roll == 2){
 					roll = rand.nextInt(3);
 					if(roll == 0){
-						artifacts.add(1+" "+primitiveFirearms());
+						addArtifact(primitiveFirearms());
 					} else if(roll == 0){
-						artifacts.add(1+" "+advancedPistols());
+						addArtifact(advancedPistols());
 					} else if(roll == 0){
-						artifacts.add(1+" "+advancedRifles());
+						addArtifact(advancedRifles());
 					}
 				}
 			}
@@ -278,11 +282,20 @@ public class LootTable {
 			gold += rollDiePercentage(4,8,0,60,"gold")*1000;
 			if(rand.nextInt(100)+1 <= 25){
 				for(int i=0;i<3;i++){
-					artifacts.add(1+" "+randomArtifactType());
+					addArtifact(randomArtifactType());
 				}
 			}
 		}
 
+	}
+	
+	private void addArtifact(String artifact){
+		if(artifacts.containsKey(artifact)){
+			int noOfArtifacts = artifacts.get(artifact);
+			artifacts.put(artifact, noOfArtifacts+1);
+		} else {
+			artifacts.put(artifact, 1);
+		}
 	}
 
 	private String randomArtifactType() {
